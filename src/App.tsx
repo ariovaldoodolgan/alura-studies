@@ -1,11 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
-import Button from './components/button';
+import Form from './components/form';
+import List from './components/List';
 
 function App() {
   return (
     <div className="App">
-      <Button></Button>
+      <Form />
+      <List />
     </div>
   );
 }
