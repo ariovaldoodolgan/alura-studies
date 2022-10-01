@@ -7,9 +7,10 @@ import { useEffect, useState } from "react";
 
 interface Props {
     selected: ITask | undefined
+    endTask: () => void
 }
 
-export default function Stopwatch({selected}: Props) {
+export default function Stopwatch({selected, endTask}: Props) {
     const [time, setTime] = useState<number>();
 
     useEffect(() => {
@@ -18,13 +19,23 @@ export default function Stopwatch({selected}: Props) {
         }
     }, [selected]);
 
+    function countdown(counter: number = 0) {
+        setTimeout(() => {
+            if (counter > 0) {
+                setTime(counter - 1);
+                return countdown(counter - 1);
+            }
+            endTask();
+        }, 1000);
+    }
+
     return (
         <div className={style.cronometro}>
             <p className={style.titulo}>Escolha um card e inicie o cronômetro</p>
             <div className={style.relogioWrapper}>
                 <Watch time={time} />
             </div>
-            <Button text="Começar!"/>
+            <Button onClick={() => countdown(time)} text="Começar!"/>
         </div>
     )
 }
